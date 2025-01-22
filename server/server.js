@@ -9,7 +9,10 @@ import userRouter from './routes/userRoute.js'
 //App Config
 const PORT = process.env.PORT || 4000
 const app = express()
-await connectDB()
+// await connectDB()
+connectDB()
+    .then(() => console.log("Database Connected"))
+    .catch((err) => console.log(err))
 
 //Initial Middelewares
 app.use(express.json())
