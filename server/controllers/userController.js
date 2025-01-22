@@ -3,11 +3,10 @@
 import { json } from "express"
 import { Webhook } from "svix"
 import userModel from "../models/userModel.js"
-console.log("userController page");
 const clerkWebhooks = async (req, res) => {
-    console.log(" inside clerkWebhooks function");
+    console.log(req.body);
     try {
-        console.log(" inside clerkWebhooks function try block");
+        console.log("vrifing webhooks...");
         //create a svix instant with clerk webhook secret
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
         await whook.verify(JSON.stringify(req.body), {
@@ -15,7 +14,9 @@ const clerkWebhooks = async (req, res) => {
             "svix-timestamp": req.headers["svix-timestamp"],
             "svix-signature": req.headers["svix-signature"]
         })
-        const { data, type } = req.body
+        console.log("webhooks verified");
+
+        const { data, type } = req.body;
         switch (type) {
             case "user.created": {
                 console.log(" inside clerkWebhooks function user.created");
@@ -50,12 +51,14 @@ const clerkWebhooks = async (req, res) => {
                 break;
             }
             default:
+                console.warn(`Unhandled webhook type: ${type}`);
+                res.status(400).json({ success: false, message: "Unhandled webhook event type" });
                 break;
         }
 
     } catch (error) {
-        console.log(error.message)
-        res.json({ success: false, message: error.message })
+        console.error("Error processing webhook:", error.message);
+        res.status(500).json({ success: false, message: error.message });
     }
 }
 

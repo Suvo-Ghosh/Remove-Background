@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-console.log("userModel page");
 
 const userSchema = new mongoose.Schema({
     clerkId: { type: String, required: true, unique: true },
