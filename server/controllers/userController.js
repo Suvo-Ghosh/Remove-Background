@@ -1,4 +1,4 @@
-//API controller function to manage clerk user widh database
+//API controller function to manage clerk user with database
 // http//localhost:4000/api/user/webhooks
 import { json } from "express"
 import { Webhook } from "svix"
