@@ -3,8 +3,11 @@
 import { json } from "express"
 import { Webhook } from "svix"
 import userModel from "../models/userModel.js"
+console.log("userController page");
 const clerkWebhooks = async (req, res) => {
+    console.log(" inside clerkWebhooks function");
     try {
+        console.log(" inside clerkWebhooks function try block");
         //create a svix instant with clerk webhook secret
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
         await whook.verify(JSON.stringify(req.body), {
@@ -15,6 +18,7 @@ const clerkWebhooks = async (req, res) => {
         const { data, type } = req.body
         switch (type) {
             case "user.created": {
+                console.log(" inside clerkWebhooks function user.created");
                 const userData = {
                     clerkId: data.id,
                     email: data.email_addresses[0].email_address,
@@ -28,6 +32,7 @@ const clerkWebhooks = async (req, res) => {
                 break;
             }
             case "user.updated": {
+                console.log(" inside clerkWebhooks function user.updated");
                 const userData = {
                     email: data.email_addresses[0].email_address,
                     firstName: data.first_name,
@@ -39,6 +44,7 @@ const clerkWebhooks = async (req, res) => {
                 break;
             }
             case "user.deleted": {
+                console.log(" inside clerkWebhooks function user.deleted");
                 await userModel.findOneAndDelete({ clerkId: data.id })
                 res.json({})
                 break;
