@@ -4,6 +4,9 @@ import cors from 'cors'
 import { connect } from 'mongoose'
 import connectDB from './configs/mongodb.js'
 import userRouter from './routes/userRoute.js'
+import imageRouter from './routes/imageRoute.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 //App Config
@@ -21,6 +24,7 @@ app.use(cors())
 //API route
 app.get('/', (req, res) => res.send('API working'))
 app.use('/api/user', userRouter)
+app.use('/api/image', imageRouter)
 
 app.listen(PORT, () => console.log("Server Running on port ", PORT))
 

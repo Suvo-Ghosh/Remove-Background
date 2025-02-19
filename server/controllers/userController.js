@@ -3,6 +3,9 @@
 import { json } from "express"
 import { Webhook } from "svix"
 import userModel from "../models/userModel.js"
+import dotenv from 'dotenv'
+dotenv.config()
+
 const clerkWebhooks = async (req, res) => {
     console.log(req.body);
     try {
@@ -62,4 +65,22 @@ const clerkWebhooks = async (req, res) => {
     }
 }
 
-export { clerkWebhooks }
+
+// API controller function to get user available credits data
+const userCredits = async (req, res) => {
+    try {
+        const { clerkId } = req.body;
+        const userData = await userModel.findOne({ clerkId })
+        if (userData) {
+            res.json({ success: true, credits: userData.creditBalance })
+        }
+
+    } catch (error) {
+        console.error("Error processing userCredits:", error.message);
+        res.json({ success: false, message: error.message });
+
+    }
+}
+
+
+export { clerkWebhooks, userCredits }
