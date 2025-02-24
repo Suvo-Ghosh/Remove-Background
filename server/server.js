@@ -20,7 +20,7 @@ connectDB()
 //Initial Middelewares
 app.use(express.json())
 app.use(cors({
-    origin: "https://your-frontend-domain.com" // Allow requests from this frontend
+    origin: "https://remove-images-background.netlify.app" // Allow requests from this frontend
 }));
 
 //API route
