@@ -19,7 +19,9 @@ connectDB()
 
 //Initial Middelewares
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: "https://your-frontend-domain.com" // Allow requests from this frontend
+}));
 
 //API route
 app.get('/', (req, res) => res.send('API working'))
