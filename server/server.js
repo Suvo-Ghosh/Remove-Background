@@ -18,8 +18,8 @@ connectDB()
     .catch((err) => console.log(err))
 
 //Initial Middelewares
-app.use(express.json())
 app.use(cors());
+app.use(express.json())
 
 //API route
 app.get('/', (req, res) => res.send('API working'))
