@@ -22,6 +22,7 @@ app.use(express.json())
 app.use(cors({
     origin: "https://remove-images-background.netlify.app" // Allow requests from this frontend
 }));
+app.options("*", cors()); // Handle preflight requests
 
 //API route
 app.get('/', (req, res) => res.send('API working'))
