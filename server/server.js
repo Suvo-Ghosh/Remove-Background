@@ -20,7 +20,9 @@ connectDB()
 //Initial Middelewares
 app.use(express.json())
 app.use(cors({
-    origin: "https://remove-images-background.netlify.app" // Allow requests from this frontend
+    origin: "https://remove-images-background.netlify.app", // Allow frontend origin
+    methods: "GET, POST, PUT, DELETE, OPTIONS", // Allow required methods
+    allowedHeaders: "Content-Type, Authorization" // Ensure required headers are allowed
 }));
 app.options("*", cors()); // Handle preflight requests
 
